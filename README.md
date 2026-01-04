@@ -1,4 +1,4 @@
- Feature Detection & Matching
+## Feature Detection & Matching
 
 **Building Visual SLAM from Scratch - Educational Implementation**
 
