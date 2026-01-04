@@ -89,98 +89,6 @@ This chapter implements the fundamental building blocks of Visual SLAM: **detect
 
 ---
 
-## 🚀 Quick Start
-
-### Prerequisites
-```bash
-pip install numpy opencv-python matplotlib
-```
-
-### Basic Usage
-
-#### 1. Detect Corners (Harris)
-```python
-from harris import detect_harris_corners
-import cv2
-
-img = cv2.imread('image.jpg', 0)
-corners = detect_harris_corners(img, k=0.04, threshold=0.01)
-print(f"Detected {len(corners)} corners")
-```
-
-#### 2. Detect Corners (FAST)
-```python
-from fast import detect_fast_keypoints
-
-keypoints = detect_fast_keypoints(img, threshold=20, nms_window=5)
-print(f"Detected {len(keypoints)} FAST corners")
-```
-
-#### 3. Compute ORB Descriptors
-```python
-from orb import compute_orb_descriptors
-
-keypoints = detect_fast_keypoints(img, threshold=20)
-descriptors = compute_orb_descriptors(img, keypoints)
-print(f"Computed {descriptors.shape[0]} descriptors of {descriptors.shape[1]} bits")
-```
-
-#### 4. Match Features Between Images
-```python
-from matching import match_descriptors_bf, ratio_test, cross_check
-
-# Detect and describe in both images
-kp1 = detect_fast_keypoints(img1, threshold=20)
-desc1 = compute_orb_descriptors(img1, kp1)
-
-kp2 = detect_fast_keypoints(img2, threshold=20)
-desc2 = compute_orb_descriptors(img2, kp2)
-
-# Match with filtering
-matches = match_descriptors_bf(desc1, desc2)
-matches = ratio_test(matches, ratio_thresh=0.75)
-matches = cross_check(matches, match_descriptors_bf(desc2, desc1))
-
-print(f"Found {len(matches)} high-quality matches")
-```
-
-#### 5. Visualize Matches
-```python
-from utils import draw_matches
-
-img_matches = draw_matches(img1, kp1, img2, kp2, matches)
-cv2.imshow('Matches', img_matches)
-cv2.waitKey(0)
-```
-
----
-
-## 📊 Example Outputs
-
-### Feature Detection
-```
-Harris Corners: ~500 corners detected
-FAST Corners: ~1000 corners (faster, more features)
-```
-
-### Feature Matching Pipeline
-```
-Raw matches:        645
-After ratio test:   423  (removes ambiguous matches)
-After cross-check:  387  (ensures bidirectional consistency)
-Inlier rate:        98%  (after geometric verification)
-```
-
-### Performance Comparison
-```
-Our FAST + ORB:     ~30 FPS on 640×480 video
-OpenCV ORB:         ~60 FPS (C++ optimized)
-
-Accuracy: Comparable! Educational goal achieved ✓
-```
-
----
-
 ## 🎓 Learning Path
 
 ### Beginner: Start Here
@@ -266,58 +174,8 @@ python matching.py
 python video_tracker_compare.py
 ```
 
----
 
-## 📈 Results on Real Data
-
-**Dataset**: TUM RGB-D (standard SLAM benchmark)
-- 640×480 images
-- Office environment
-- Camera motion: translation + rotation
-
-**Our Implementation:**
-- FAST detector: ~500 keypoints/frame
-- ORB descriptors: 256-bit binary
-- Matching: 98% inlier rate after filtering
-- Speed: ~30 FPS (Python)
-
-**Comparison with OpenCV:**
-- Accuracy: Matches within 1-2 pixels ✓
-- Speed: OpenCV 2× faster (C++ implementation)
-- Goal achieved: Understanding > Speed ✓
-
----
-
-## 🐛 Common Issues & Solutions
-
-### Issue: Too many/few features detected
-```python
-# Adjust FAST threshold
-keypoints = detect_fast_keypoints(img, threshold=20)  # Lower = more features
-keypoints = detect_fast_keypoints(img, threshold=40)  # Higher = fewer features
-```
-
-### Issue: Poor matches
-```python
-# Tighten ratio test
-matches = ratio_test(matches, ratio_thresh=0.7)  # Stricter (default 0.75)
-
-# Add cross-check
-matches = cross_check(matches, matches_reverse)  # Ensure bidirectional consistency
-```
-
-### Issue: Slow performance
-```python
-# Reduce number of features
-keypoints = keypoints[:500]  # Keep top 500
-
-# Use OpenCV for speed, our code for understanding
-orb = cv2.ORB_create(nfeatures=1000)
-```
-
----
-
-## 🔗 What's Next: Chapter 2
+## 🔗 What's Next:
 
 With feature matching working, we can now:
 - **Estimate fundamental matrix** (epipolar geometry)
@@ -361,14 +219,6 @@ Educational use. Code is meant to be read, understood, and learned from.
 
 ---
 
-## 🎯 Key Takeaways
-
-**What I Learned:**
-1. **Detectors find WHERE** (keypoints) → Descriptors describe WHAT (appearance)
-2. **Matching is 80% filtering** → Ratio test + cross-check are critical
-3. **Trade-offs matter** → Speed vs robustness vs invariance
-4. **Implementation ≠ Understanding** → Building it reveals the details
-5. **Visualization is key** → See the algorithm, understand the algorithm
 
 **Why This Matters:**
 - Foundation for Visual SLAM
