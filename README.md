@@ -16,8 +16,8 @@ This chapter implements the fundamental building blocks of Visual SLAM: **detect
 
 <img src="output/harris_corners.png" width="600">
 <img src="output/fast_corners.png" width="600">
-<img src="output/output/orb_features.png" width="600">
-<img src="output/output/SIFT_features.png" width="600">
+<img src="output/orb_features.png" width="600">
+<img src="output/SIFT_features.png" width="600">
 
 
 ### Feature Matching
