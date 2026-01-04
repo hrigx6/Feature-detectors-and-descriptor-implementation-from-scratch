@@ -65,6 +65,18 @@ This chapter implements the fundamental building blocks of Visual SLAM: **detect
 - **`video_tracker_scratch.py`** - Pure Custom Implementation
 - **`video_tracker_opencv.py`** - OpenCV Reference
 
+## 📸 Visual Examples
+
+### Feature Detection
+![Harris Corners](outputs/harris_corners.png)
+![FAST Detection](outputs/fast_detection.png)
+
+### Feature Matching
+![Feature Matches](outputs/feature_matches.png)
+
+### Video Tracking
+![Video Comparison](outputs/video_compare.png)
+
 ### Utilities
 - **`utils.py`** - Helper Functions
   - Image I/O, Gaussian filtering
