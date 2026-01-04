@@ -13,8 +13,9 @@ This chapter implements the fundamental building blocks of Visual SLAM: **detect
 ## 📸 Visual Examples
 
 ### Feature Detection
-![Harris Corners](output/harris_corners.png)
-![FAST Detection](output/fast_corners.png)
+
+<img src="output/harris_corners.png" width="400">
+<img src="output/fast_corners.png" width="400">
 ![ORB Features](output/orb_features.png)
 ![SIFT Detection](output/SIFT_features.png)
 
